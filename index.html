@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-12-05 Сб 21:05 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Введение в SuperCollider</title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="styles.css"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Введение в SuperCollider</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgf385806">1. Почему SC?</a></li>
+<li><a href="#org8f7bb7a">2. Архитектура</a></li>
+<li><a href="#orga0145d2">3. Базовый синтаксис</a></li>
+<li><a href="#org26f29ab">4. Переменные</a></li>
+<li><a href="#org1112b4e">5. Функции</a></li>
+<li><a href="#org12394fd">6. Юнит-генераторы (Ugen)</a>
+<ul>
+<li><a href="#orgcbca8b2">6.1. Отладка и анализ Юнит-генераторов</a></li>
+<li><a href="#orgae340fa">6.2. Осциллограф и Спектральный анализатор.</a></li>
+</ul>
+</li>
+<li><a href="#org306fd8b">7. Массивы и Многоканальное расширение</a>
+<ul>
+<li><a href="#org9832761">7.1. Массивы</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf385806" class="outline-2">
+<h2 id="orgf385806"><span class="section-number-2">1</span> Почему SC?</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Supercollider - это швейцарский нож для работы со звуком и композиции.
+С его помощью можно создавать программные синтезаторы, использовать его для
+генеративной/алгоритмической музыки, создавать языки и среды для лайв-кодинга,
+генерировать MIDI и посылать в любимую DAW и так далее.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8f7bb7a" class="outline-2">
+<h2 id="org8f7bb7a"><span class="section-number-2">2</span> Архитектура</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Сама среда состоит из сервера (Scsynth или SuperNova) и языка (Sclang). Язык
+и сервер общаются с помощью протокола <a href="https://en.wikipedia.org/wiki/Open_Sound_Control">OSC</a>. Именно эта особенность делает
+возможным быстро и довольно просто создавать интерфейсы для Scsynth на других
+языках программирования или использовать его в других программах, например
+<a href="https://tidalcycles.org/index.php/Welcome">Tidal Cycles</a> - невероятно популярной среде для лайв кодинга.
+</p>
+
+<p>
+Кроме того такая архитектура позволяет синхронизировать выступление нескольких
+человек. Именно так делают <a href="http://www.the-mandelbrots.de/">Benoît and the Mandelbrots</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga0145d2" class="outline-2">
+<h2 id="orga0145d2"><span class="section-number-2">3</span> Базовый синтаксис</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Все инструкции языка разделяются символом ';'. Существует только одно
+исключение - код, состоящий из одной строки, но вряд ли такой код может быть
+полезен.
+</p>
+
+<p>
+Код из примера ниже выведет строку на экран:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang"><span style="color: #A3BE8C;">"Hello World!"</span>.postln;
+</pre>
+</div>
+
+<p>
+Иногда удобно группировать инструкции языка, чтобы выполнить несколько действий
+последовательно. Для этого инструкции заключаются в скобки:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">(
+<span style="color: #A3BE8C;">"Hello World!"</span>.postln;
+<span style="color: #A3BE8C;">"Hello SC Workshop!"</span>.postln;
+)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org26f29ab" class="outline-2">
+<h2 id="org26f29ab"><span class="section-number-2">4</span> Переменные</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+В SC существует три типа переменных: обычные переменные, глобальные и переменные
+окружения.
+</p>
+
+<p>
+Обычные переменные обозначаются ключевым словом <code>var</code>. Такие переменные могут
+существовать только в пределах блоков кода или функции (о них поговорим позже).
+</p>
+
+<p>
+Такой код выведет строку "nothing" на экран:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">(
+<span style="color: #81A1C1;">var</span> something = <span style="color: #A3BE8C;">"nothing"</span>;
+something.postln;
+)
+</pre>
+</div>
+
+<p>
+При этом такой код завершиться с ошибкой:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">(
+<span style="color: #81A1C1;">var</span> something = <span style="color: #A3BE8C;">"nothing"</span>;
+)
+
+something.postln;
+</pre>
+</div>
+
+<p>
+Так как за пределами скобок переменная уже не существует.
+</p>
+
+<p>
+Переменные можно объявлять через запятую:
+</p>
+<div class="org-src-container">
+<pre class="src src-sclang">(
+<span style="color: #81A1C1;">var</span> something, meaning_of_life;
+something = <span style="color: #A3BE8C;">"nothing"</span>;
+meaning_of_life = 42;
+)
+</pre>
+</div>
+
+<p>
+Также существуют глобальные переменные - это все символы латинского алфавита,
+кроме <code>s</code> - этот символ зарезервирован и является ссылкой на экземпляр сервера.
+Глобальные переменные существуют независимо от блоков кода.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">a = 0;
+ 
+(
+a = 1 + 1;
+)
+
+a.postln; <span style="color: #616e88;">// </span><span style="color: #616e88;">2</span>
+</pre>
+</div>
+
+<p>
+Переменные окружения начинаются с символа ~, например <code>~something</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1112b4e" class="outline-2">
+<h2 id="org1112b4e"><span class="section-number-2">5</span> Функции</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Функции - крайне важная тема в любом языке программирования. Они позволяют
+выполнять часто повторяемые операции или производить вычисления, зависимые
+от передаваемых параметров.
+</p>
+
+<p>
+Чтобы создать функцию нужно заключить выражение в фигурные скобки, при этом
+функция вернёт последнее выражение.
+</p>
+
+<p>
+Чтобы вызвать функцию необходимо вызвать метод <code>.value</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">f = { 1 + 2 };
+f.value; <span style="color: #616e88;">// </span><span style="color: #616e88;">3</span>
+</pre>
+</div>
+
+<p>
+Понятно, что фунции, вроде той, что мы написали выше не особо полезны.
+Чтобы написать по настоящему полезную ф-цию, нужно передать ей аргументы.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">f = { <span style="color: #81A1C1;">arg</span> x; x + 1};
+f.value(1); <span style="color: #616e88;">// </span><span style="color: #616e88;">2</span>
+</pre>
+</div>
+
+<p>
+Также можно задать значение аргумента по-умолчанию.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">f = { <span style="color: #81A1C1;">arg</span> x = 1; x + 1};
+f.value; <span style="color: #616e88;">// </span><span style="color: #616e88;">2</span>
+</pre>
+</div>
+
+<p>
+Для ф-ций также существует более короткий способ записи и вызова.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">f = { |x| x + 1 };
+f.(1); <span style="color: #616e88;">// </span><span style="color: #616e88;">2</span>
+</pre>
+</div>
+
+<p>
+Его мы будем использовать чаще.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org12394fd" class="outline-2">
+<h2 id="org12394fd"><span class="section-number-2">6</span> Юнит-генераторы (Ugen)</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Пришло время создать первый звук. Для этого в SC существует множество
+строительных блоков - юнит генераторов. Это генераторы тона, огибающей,
+триггеры, фильтры и прочее.
+</p>
+
+<p>
+Для того, чтобы начать работать со звуком нужно запустить сервер командой
+<code>s.boot;</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">s.boot;
+
+f = { <span style="color: #8FBCBB;">SinOsc</span>.<span style="color: #88C0D0;">ar</span>(440) }.play;
+f.free;
+</pre>
+</div>
+
+<p>
+<a href="https://doc.sccode.org/Classes/SinOsc.html">SinOsc</a> - это генератор синусоиды. У любого генератора есть методы <code>.ar</code> и
+<code>.kr</code> - сокращения от Audio rate и Control rate. От выбора параметра зависит
+насколько часто генератор будет обновлять значения. Для звука стоит выбирать
+<code>.ar</code>, для модуляций подойдёт <code>.kr</code> (есть ещё <code>.ir</code>, но мы не будем его
+рассматривать).
+</p>
+
+<p>
+Метод <code>.play</code> создаёт экземпляр класса <a href="https://doc.sccode.org/Classes/Synth.html">Synth</a> у отправляет его на сервер.
+Этот синтезатор можно остановить при помощи <code>.free</code>.
+</p>
+
+<p>
+Вот пример простого тремоло:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">s.boot;
+
+f = {
+  <span style="color: #8FBCBB;">SinOsc</span>.<span style="color: #88C0D0;">ar</span>(440) * <span style="color: #8FBCBB;">SinOsc</span>.<span style="color: #88C0D0;">kr</span>(10).range(0.75, 1)
+}.play;
+
+f.free;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgcbca8b2" class="outline-3">
+<h3 id="orgcbca8b2"><span class="section-number-3">6.1</span> Отладка и анализ Юнит-генераторов</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Иногда бывает полезно посмотреть какие именно значения выдаёт тот или иной
+генератор или какая форма сигнала получается при, например, алгебраических
+операциях над ними.
+</p>
+
+<p>
+Чтобы вывести в окно отладки значение генератора нужно вызвать у него метод
+<code>.poll</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">s.boot;
+
+f = { <span style="color: #8FBCBB;">SinOsc</span>.<span style="color: #88C0D0;">ar</span>(440).poll }.play;
+f.free;
+</pre>
+</div>
+
+<p>
+В итоге мы увидим следующее:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang"><span style="color: #8FBCBB;">UGen</span>(<span style="color: #8FBCBB;">SinOsc</span>): 0.057564
+<span style="color: #8FBCBB;">UGen</span>(<span style="color: #8FBCBB;">SinOsc</span>): 0.0575251
+<span style="color: #8FBCBB;">UGen</span>(<span style="color: #8FBCBB;">SinOsc</span>): 0.0574862
+<span style="color: #8FBCBB;">UGen</span>(<span style="color: #8FBCBB;">SinOsc</span>): 0.0574474
+<span style="color: #8FBCBB;">UGen</span>(<span style="color: #8FBCBB;">SinOsc</span>): 0.0574085
+<span style="color: #8FBCBB;">UGen</span>(<span style="color: #8FBCBB;">SinOsc</span>): 0.0573696
+<span style="color: #8FBCBB;">UGen</span>(<span style="color: #8FBCBB;">SinOsc</span>): 0.0573307
+<span style="color: #8FBCBB;">UGen</span>(<span style="color: #8FBCBB;">SinOsc</span>): 0.0572918
+<span style="color: #8FBCBB;">UGen</span>(<span style="color: #8FBCBB;">SinOsc</span>): 0.0572529
+<span style="color: #8FBCBB;">UGen</span>(<span style="color: #8FBCBB;">SinOsc</span>): 0.0572141
+<span style="color: #8FBCBB;">UGen</span>(<span style="color: #8FBCBB;">SinOsc</span>): 0.0571752
+</pre>
+</div>
+
+<p>
+Также бывает полезно добавить какую-нибудь метку, например, чтобы лучше
+понимать, к какому именно генератору относятся данные. Это можно сделать,
+указав аргумент <code>label</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">s.boot;
+
+f = {
+  <span style="color: #8FBCBB;">SinOsc</span>.<span style="color: #88C0D0;">ar</span>(440).poll(<span style="color: #D8DEE9;">label:</span> <span style="color: #81A1C1;">\signal</span>) *
+  <span style="color: #8FBCBB;">SinOsc</span>.<span style="color: #88C0D0;">ar</span>(20).poll(<span style="color: #D8DEE9;">label:</span> <span style="color: #81A1C1;">\amp_modulation</span>)
+}.play;
+
+f.free;
+</pre>
+</div>
+
+<p>
+Результат будет информативнее:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang"><span style="color: #D8DEE9;">signal:</span> 0.057564
+<span style="color: #D8DEE9;">amp_modulation:</span> 0.00261799
+<span style="color: #D8DEE9;">signal:</span> 0.0575251
+<span style="color: #D8DEE9;">amp_modulation:</span> 0.002606
+<span style="color: #D8DEE9;">signal:</span> 0.0574862
+<span style="color: #D8DEE9;">amp_modulation:</span> 0.00259402
+<span style="color: #D8DEE9;">signal:</span> 0.0574474
+<span style="color: #D8DEE9;">amp_modulation:</span> 0.00258204
+<span style="color: #D8DEE9;">signal:</span> 0.0574085
+<span style="color: #D8DEE9;">amp_modulation:</span> 0.00257005
+<span style="color: #D8DEE9;">signal:</span> 0.0573696
+<span style="color: #D8DEE9;">amp_modulation:</span> 0.00255807
+</pre>
+</div>
+
+<p>
+Также можно вывести форму волны для Юнит-генераторов, функций, коллекций
+и даже файлов. Для этого можно вызвать метод <code>.plot</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">(
+{ <span style="color: #8FBCBB;">SinOsc</span>.<span style="color: #88C0D0;">ar</span>(220 * <span style="color: #8FBCBB;">SinOsc</span>.<span style="color: #88C0D0;">ar</span>(20)) }.plot;
+{ <span style="color: #8FBCBB;">SinOsc</span>.<span style="color: #88C0D0;">ar</span>(440) * <span style="color: #8FBCBB;">SinOsc</span>.<span style="color: #88C0D0;">ar</span>(20) }.plot;
+)
+</pre>
+</div>
+
+
+
+<div class="figure">
+<p><img src="./plot_example1.png" alt="plot_example1.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Результат печати для первого сигнала</p>
+</div>
+
+
+<div class="figure">
+<p><img src="./plot_example2.png" alt="plot_example2.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Результат печати для второго сигнала</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgae340fa" class="outline-3">
+<h3 id="orgae340fa"><span class="section-number-3">6.2</span> Осциллограф и Спектральный анализатор.</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Кроме методов <code>.plot</code> и <code>.poll</code> в SC есть ещё два анализатора - осциллограф и
+спектральный анализатор.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">s.scope; <span style="color: #616e88;">// </span><span style="color: #616e88;">&#1054;&#1090;&#1082;&#1088;&#1099;&#1090;&#1100; &#1086;&#1089;&#1094;&#1080;&#1083;&#1083;&#1086;&#1075;&#1088;&#1072;&#1092;</span>
+<span style="color: #8FBCBB;">FreqScope</span>.new(400, 200, 0, <span style="color: #D8DEE9;">server:</span> s); <span style="color: #616e88;">// </span><span style="color: #616e88;">&#1089;&#1087;&#1077;&#1082;&#1090;&#1088;&#1072;&#1083;&#1100;&#1085;&#1099;&#1081; &#1072;&#1085;&#1072;&#1083;&#1080;&#1079;&#1072;&#1090;&#1086;&#1088;</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org306fd8b" class="outline-2">
+<h2 id="org306fd8b"><span class="section-number-2">7</span> Массивы и Многоканальное расширение</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-org9832761" class="outline-3">
+<h3 id="org9832761"><span class="section-number-3">7.1</span> Массивы</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+В SC существует большое количество коллекций, но особое внимание стоит уделить
+массивам, потому что именно ими мы будем пользоваться чаще всего.
+</p>
+
+<p>
+Чтобы создать массив можно воспользоваться литералом или конструктором, но
+литерал всё же используется чаще.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">(
+<span style="color: #81A1C1;">var</span> arr1 = [1, 2, 3]; <span style="color: #616e88;">// </span><span style="color: #616e88;">&#1083;&#1080;&#1090;&#1077;&#1088;&#1072;&#1083;</span>
+<span style="color: #81A1C1;">var</span> arr2 = <span style="color: #8FBCBB;">Array</span>.new(); <span style="color: #616e88;">// </span><span style="color: #616e88;">&#1082;&#1086;&#1085;&#1089;&#1090;&#1088;&#1091;&#1082;&#1090;&#1086;&#1088;</span>
+)
+</pre>
+</div>
+
+<p>
+Конструкторы же позволяют быстро создать коллекцию определёной формы:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang"><span style="color: #8FBCBB;">Array</span>.geom(10, 1, 2); <span style="color: #616e88;">// </span><span style="color: #616e88;">[ 1, 2, 4, 8, 16 ] &#1075;&#1077;&#1086;&#1084;&#1077;&#1090;&#1088;&#1080;&#1095;&#1077;&#1089;&#1082;&#1072;&#1103; &#1087;&#1088;&#1086;&#1075;&#1088;&#1077;&#1089;&#1089;&#1080;&#1103;</span>
+<span style="color: #8FBCBB;">Array</span>.series(5, 1, 2); <span style="color: #616e88;">// </span><span style="color: #616e88;">[ 1, 3, 5, 7, 9 ] &#1072;&#1088;&#1080;&#1092;&#1084;&#1077;&#1090;&#1080;&#1095;&#1077;&#1089;&#1082;&#1072;&#1103; &#1087;&#1088;&#1086;&#1075;&#1088;&#1077;&#1089;&#1089;&#1080;&#1103;</span>
+<span style="color: #8FBCBB;">Array</span>.interpolation(5, 1, 2); <span style="color: #616e88;">// </span><span style="color: #616e88;">[ 1.0, 1.25, 1.5, 1.75, 2.0 ]</span>
+<span style="color: #8FBCBB;">Array</span>.fill(5, {|i| i * 0.25}); <span style="color: #616e88;">// </span><span style="color: #616e88;">&#1048;&#1089;&#1087;&#1086;&#1083;&#1100;&#1079;&#1086;&#1074;&#1072;&#1085;&#1080;&#1077; &#1092;-&#1094;&#1080;&#1080; &#1076;&#1083;&#1103; &#1075;&#1077;&#1085;&#1077;&#1088;&#1072;&#1094;&#1080;&#1080;</span>
+</pre>
+</div>
+
+<p>
+К массивам можно применять алгебраические операции
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">[1, 2, 3] + 10; <span style="color: #616e88;">// </span><span style="color: #616e88;">[ 11, 12, 13 ]</span>
+[1, 2, 3] + [4, 5, 6]; <span style="color: #616e88;">// </span><span style="color: #616e88;">[ 5, 7, 9 ]</span>
+</pre>
+</div>
+
+<p>
+Также можно проводить вычисления с каждым элементом массива. Для этого
+существует два метода - итерация и применение ф-ции к массиву.
+</p>
+
+<p>
+Первый метод - импользовать <code>.do</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">[0, 1, 2, 3].do({|i|
+  i.postln;
+});
+</pre>
+</div>
+
+<p>
+В результате на экран будут выведены числа от 0 до 3.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sclang">0
+1
+2
+3
+-&gt; [ 0, 1, 2, 3 ]
+</pre>
+</div>
+
+<p>
+При этом в результате операции вернулся тот же массив. Этот метод имеет смысл
+использовать, если нам нужно повторить какую-то операцию несколько раз.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2020-12-05 Сб 21:05</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
