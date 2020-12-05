@@ -1,3 +1,6 @@
+#+TITLE: Введение в SuperCollider
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="styles.css"/>
+
 * Почему SC?
 Supercollider - это швейцарский нож для работы со звуком и композиции.
 С его помощью можно создавать программные синтезаторы, использовать его для
@@ -156,7 +159,10 @@ f.free;
 #+begin_src sclang
 s.boot;
 
-f = { SinOsc.ar(440) * SinOsc.kr(10).range(0.75, 1) }.play;
+f = {
+  SinOsc.ar(440) * SinOsc.kr(10).range(0.75, 1)
+}.play;
+
 f.free;
 #+end_src
 

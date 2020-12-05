@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=JetBrains+Mono&display=swap');
+
+html, body {
+  padding: unset;
+  margin: unset;
+}
+
+body {
+  display: grid;
+  font-family: 'EB Garamond', serif;
+  font-size: 16pt;
+}
+
+#content {
+  display: grid;
+  background: whitesmoke;
+  color: #0f0f0f;
+  grid-template-columns: 50%; 
+  justify-content: center;
+}
+
+pre {
+  font-family: unset;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: inherit;
+  margin: unset;
+}
+
+@media (max-width: 1720px) {
+  #content {
+    grid-template-columns: 70%; 
+  }
+}
+
+@media (max-width: 720px) {
+  body {
+    font-size: 10pt;
+  }
+
+  #content {
+    grid-template-columns: 90%; 
+  }
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
